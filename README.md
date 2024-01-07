@@ -1,7 +1,7 @@
 Ansible Role: adguard
 =========
 
-This role configures an AdGuard Home instance using [Docker](https://docker.io) on Linux.
+An Ansible role to configure an AdGuard Home instance using [Docker](https://docker.io) on Linux.
 
 Requirements
 ------------
