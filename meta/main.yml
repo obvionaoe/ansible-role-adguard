@@ -1,0 +1,19 @@
+galaxy_info:
+  role_name: adguard
+  author: obvionaoe
+  description: This role configures an AdGuard Home instance using Docker on Linux.
+  license: "license (MIT)"
+  min_ansible_version: "2.4"
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+        - bookworm
+  galaxy_tags:
+    - adguard
+    - dns
+    - home
+    - dhcp
+    - docker
+    - networking

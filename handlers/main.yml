@@ -1,0 +1,11 @@
+- name: Restart AdGuard Home container
+  community.docker.docker_container:
+    name: "{{ adguard_home_container_name }}"
+    state: restart
+  notify: Wait for AdGuard Home to start
+
+- name: Wait for AdGuard Home to start
+  ansible.builtin.wait_for:
+    port: "{{ adguard_home_http_port }}"
+    delay: 10
+    timeout: 60

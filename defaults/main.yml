@@ -1,0 +1,7 @@
+adguard_version: "latest"
+adguard_container_name: "adguard_home"
+adguard_config_dir: "/adguard_home/conf"
+adguard_data_dir: "/adguard_home/work"
+adguard_dns_port: 53
+adguard_http_port: 80
+adguard_enable_dhcp: false
