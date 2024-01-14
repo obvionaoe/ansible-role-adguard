@@ -1,7 +1,7 @@
 - name: Create AdGuard Home directories
   ansible.builtin.file:
     path: '{{ item }}'
-    recursive: true
+    recurse: true
     mode: '0644'
   loop:
     - '{{ adguard_config_dir }}'
