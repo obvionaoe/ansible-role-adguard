@@ -1,15 +1,16 @@
 - name: Create AdGuard Home directories
   ansible.builtin.file:
     path: '{{ item }}'
+    recursive: true
     mode: '0644'
   loop:
-    - '{{ adguard_home_config_dir }}'
-    - '{{ adguard_home_data_dir }}'
+    - '{{ adguard_config_dir }}'
+    - '{{ adguard_data_dir }}'
 
 # - name: Copy AdGuard Home configuration file
 #   ansible.builtin.copy:
-#     src: '{{ adguard_home_config_file }}'
-#     dest: '{{ adguard_home_conf_dir }}/'
+#     src: '{{ adguard_config_file }}'
+#     dest: '{{ adguard_config_dir }}/'
 #     owner: foo
 #     group: foo
 #     mode: '0644'
@@ -17,30 +18,30 @@
 
 - name: Create AdGuard Home Docker container
   community.docker.docker_container:
-    name: '{{ adguard_home_container_name }}'
-    image: 'adguard/adguardhome:{{ adguard_home_version }}'
+    name: '{{ adguard_container_name }}'
+    image: 'adguard/adguardhome:{{ adguard_version }}'
     state: started
     restart_policy: always
     volumes:
-      - '{{ adguard_home_conf_dir }}:/opt/adguardhome/conf'
-      - '{{ adguard_home_data_dir }}:/opt/adguardhome/work'
+      - '{{ adguard_config_dir }}:/opt/adguardhome/conf'
+      - '{{ adguard_data_dir }}:/opt/adguardhome/work'
     network_mode: host
   notify: Restart AdGuard Home container
-  when: adguard_home_enable_dhcp
+  when: adguard_enable_dhcp
 
 - name: Create AdGuard Home Docker container
   community.docker.docker_container:
-    name: '{{ adguard_home_container_name }}'
-    image: 'adguard/adguardhome:{{ adguard_home_version }}'
+    name: '{{ adguard_container_name }}'
+    image: 'adguard/adguardhome:{{ adguard_version }}'
     state: started
     restart_policy: always
     volumes:
-      - '{{ adguard_home_conf_dir }}:/opt/adguardhome/conf'
-      - '{{ adguard_home_data_dir }}:/opt/adguardhome/work'
+      - '{{ adguard_config_dir }}:/opt/adguardhome/conf'
+      - '{{ adguard_data_dir }}:/opt/adguardhome/work'
     ports:
-      - '{{ adguard_home_dns_port }}:53/tcp'
-      - '{{ adguard_home_dns_port }}:53/udp'
-      - '{{ adguard_home_http_port }}:80/tcp'
-      - '{{ adguard_home_http_port }}:80/tcp'
+      - '{{ adguard_dns_port }}:53/tcp'
+      - '{{ adguard_dns_port }}:53/udp'
+      - '{{ adguard_http_port }}:80/tcp'
+      - '{{ adguard_http_port }}:80/tcp'
   notify: Restart AdGuard Home container
-  when: not adguard_home_enable_dhcp
+  when: not adguard_enable_dhcp
