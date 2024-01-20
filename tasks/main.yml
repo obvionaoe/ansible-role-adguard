@@ -25,23 +25,20 @@
     volumes:
       - '{{ adguard_config_dir }}:/opt/adguardhome/conf'
       - '{{ adguard_data_dir }}:/opt/adguardhome/work'
-    network_mode: host
-  notify: Restart AdGuard Home container
-  when: adguard_enable_dhcp
-
-- name: Create AdGuard Home Docker container
-  community.docker.docker_container:
-    name: '{{ adguard_container_name }}'
-    image: 'adguard/adguardhome:{{ adguard_version }}'
-    state: started
-    restart_policy: always
-    volumes:
-      - '{{ adguard_config_dir }}:/opt/adguardhome/conf'
-      - '{{ adguard_data_dir }}:/opt/adguardhome/work'
     ports:
-      - '{{ adguard_dns_port }}:53/tcp'
-      - '{{ adguard_dns_port }}:53/udp'
-      - '{{ adguard_http_port }}:80/tcp'
-      - '{{ adguard_http_port }}:80/tcp'
+      - '53:53/tcp'
+      - '68:68/tcp'
+      - '80:80/tcp'
+      - '443:443/tcp'
+      - '853:853/tcp'
+      - '3000:3000/tcp'
+      - '5443:5443/tcp'
+      - '53:53/udp'
+      - '67:67/udp'
+      - '68:68/udp'
+      - '443:443/udp'
+      - '784:784/udp'
+      - '853:853/udp'
+      - '5443:5443/udp'
+      - '8853:8853/udp'
   notify: Restart AdGuard Home container
-  when: not adguard_enable_dhcp
