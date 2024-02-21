@@ -1,7 +1,8 @@
 - name: Restart AdGuard Home container
   community.docker.docker_container:
     name: "{{ adguard_container_name }}"
-    state: restart
+    state: started
+    restart: true
   notify: Wait for AdGuard Home to start
 
 - name: Wait for AdGuard Home to start
