@@ -16,7 +16,8 @@
 #     mode: '0644'
 #   notify: Restart AdGuard Home container
 
-- name: Create AdGuard Home Docker container
+- name: Create AdGuard Home Docker container (without DHCP server)
+  when: not adguard_enable_dhcp
   community.docker.docker_container:
     name: '{{ adguard_container_name }}'
     image: 'adguard/adguardhome:{{ adguard_version }}'
@@ -41,4 +42,17 @@
       - '853:853/udp'
       - '5443:5443/udp'
       - '8853:8853/udp'
+  notify: Restart AdGuard Home container
+
+- name: Create AdGuard Home Docker container (with DHCP server)
+  when: adguard_enable_dhcp
+  community.docker.docker_container:
+    name: '{{ adguard_container_name }}'
+    image: 'adguard/adguardhome:{{ adguard_version }}'
+    state: started
+    restart_policy: always
+    volumes:
+      - '{{ adguard_config_dir }}:/opt/adguardhome/conf'
+      - '{{ adguard_data_dir }}:/opt/adguardhome/work'
+  network_mode: host
   notify: Restart AdGuard Home container
