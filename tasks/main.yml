@@ -54,5 +54,5 @@
     volumes:
       - '{{ adguard_config_dir }}:/opt/adguardhome/conf'
       - '{{ adguard_data_dir }}:/opt/adguardhome/work'
-  network_mode: host
+    network_mode: host
   notify: Restart AdGuard Home container
