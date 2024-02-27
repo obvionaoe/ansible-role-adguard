@@ -7,6 +7,6 @@
 
 - name: Wait for AdGuard Home to start
   ansible.builtin.wait_for:
-    port: "{{ adguard_http_port }}"
+    port: "80"
     delay: 10
     timeout: 60
