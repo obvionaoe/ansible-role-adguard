@@ -12,8 +12,6 @@
   ansible.builtin.copy:
     src: '{{ adguard_config_file }}'
     dest: '{{ adguard_config_dir }}/AdGuardHome.yaml'
-    owner: foo
-    group: foo
     mode: '0644'
   notify: Restart AdGuard Home container
 
