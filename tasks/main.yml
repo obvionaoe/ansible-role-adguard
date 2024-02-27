@@ -7,14 +7,15 @@
     - '{{ adguard_config_dir }}'
     - '{{ adguard_data_dir }}'
 
-# - name: Copy AdGuard Home configuration file
-#   ansible.builtin.copy:
-#     src: '{{ adguard_config_file }}'
-#     dest: '{{ adguard_config_dir }}/'
-#     owner: foo
-#     group: foo
-#     mode: '0644'
-#   notify: Restart AdGuard Home container
+- name: Copy AdGuard Home configuration file
+  when: adguard_config_file != null
+  ansible.builtin.copy:
+    src: '{{ adguard_config_file }}'
+    dest: '{{ adguard_config_dir }}/AdGuardHome.yaml'
+    owner: foo
+    group: foo
+    mode: '0644'
+  notify: Restart AdGuard Home container
 
 - name: Create AdGuard Home Docker container (without DHCP server)
   when: not adguard_enable_dhcp
