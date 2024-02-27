@@ -4,6 +4,6 @@ adguard_container_name: "adguard_home"
 adguard_config_dir: "/adguard_home/conf"
 adguard_data_dir: "/adguard_home/work"
 
-adguard_config_file: null
+adguard_config_file: ''
 
 adguard_enable_dhcp: false

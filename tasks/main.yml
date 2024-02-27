@@ -8,7 +8,7 @@
     - '{{ adguard_data_dir }}'
 
 - name: Copy AdGuard Home configuration file
-  when: adguard_config_file != null
+  when: adguard_config_file | length > 0
   ansible.builtin.copy:
     src: '{{ adguard_config_file }}'
     dest: '{{ adguard_config_dir }}/AdGuardHome.yaml'
